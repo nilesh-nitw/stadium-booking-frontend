@@ -1,0 +1,55 @@
+/* Header Styling */
+.header {
+  background-color: #2e8b57; /* Dark green */
+  color: white;
+  padding: 10px 20px;
+}
+
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.logo h1 {
+  font-size: 1.8em;
+  margin: 0;
+  font-weight: bold;
+}
+
+.nav-links {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+}
+
+.nav-links li {
+  margin-left: 20px;
+}
+
+.nav-link {
+  color: white;
+  text-decoration: none;
+  font-size: 1.2em;
+  transition: color 0.3s ease;
+}
+
+.nav-link:hover {
+  color: #ffcc00; /* Highlight color */
+}
+
+.nav-link:active {
+  color: #ffcc00;
+}
+
+.nav-links .nav-link {
+  cursor: pointer;
+}
+
+.header .navbar .nav-links li {
+  display: flex;
+  align-items: center;
+}

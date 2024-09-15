@@ -5,7 +5,7 @@ import Login from './components/Login';
 import Signup from './components/Signup';
 import CustomerList from './components/CustomerList';
 import EditCustomer from './components/EditCustomer';
-import Events from './components/Events';
+import AboutUs from './components/AboutUs';
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -24,7 +24,7 @@ function App() {
           <Route path="/login" element={<Login setIsLoggedIn={setIsLoggedIn} />} />
           <Route path="/signup" element={<Signup />} />
           <Route path="/" element={<CustomerList />} />
-          <Route path="/events" element={<Events />} />
+          <Route path="/about-us" element={<AboutUs />} />
           <Route path="/edit-customer/:id" element={<EditCustomer />} />
         </Routes>
       </div>
