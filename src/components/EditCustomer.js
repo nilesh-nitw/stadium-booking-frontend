@@ -11,7 +11,9 @@ const EditCustomer = ({ customerID }) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await editCustomer(1, { firstName, lastName });
+      const customerID = localStorage.getItem('customerId');
+      console.log('customerID  ----',customerID);
+      await editCustomer( { firstName, lastName });
       alert('Customer updated successfully');
     } catch (err) {
       setError(err.message);
