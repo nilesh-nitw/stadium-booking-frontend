@@ -15,6 +15,7 @@ const Login = ({ setIsLoggedIn }) => {
       const response = await loginService({ email, password });
       const token = response.data.token; // Adjust based on your API response
       localStorage.setItem('authToken', token);
+      localStorage.setItem('customerId', response.data.customerId);
       setIsLoggedIn(true); // Set the login state to true
       navigate('/'); // Redirect to the home page
     } catch (error) {
@@ -53,6 +54,9 @@ const Login = ({ setIsLoggedIn }) => {
           />
         </div>
         <button type="submit" className="login-button">Login</button>
+        <div className="signup-option">
+          <p>Don't have an account? <a href="/signup">Sign Up</a></p>
+        </div>
       </form>
     </div>
   );
