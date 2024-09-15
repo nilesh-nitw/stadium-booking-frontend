@@ -1,9 +1,7 @@
-// src/components/EditCustomer.js
-
 import React, { useState } from 'react';
 import { editCustomer } from '../services/customerService';
 
-const EditCustomer = ({ customerID }) => {
+const EditCustomer = ({ customerID, onEditComplete }) => {
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
   const [error, setError] = useState(null);
@@ -11,10 +9,9 @@ const EditCustomer = ({ customerID }) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const customerID = localStorage.getItem('customerId');
-      console.log('customerID  ----',customerID);
-      await editCustomer( { firstName, lastName });
+      await editCustomer({ firstName, lastName });
       alert('Customer updated successfully');
+      onEditComplete(); // Notify the parent component to refresh or exit edit mode
     } catch (err) {
       setError(err.message);
     }
@@ -30,6 +27,7 @@ const EditCustomer = ({ customerID }) => {
             type="text"
             value={firstName}
             onChange={(e) => setFirstName(e.target.value)}
+            required
           />
         </div>
         <div>
@@ -38,6 +36,7 @@ const EditCustomer = ({ customerID }) => {
             type="text"
             value={lastName}
             onChange={(e) => setLastName(e.target.value)}
+            required
           />
         </div>
         <button type="submit">Update Customer</button>

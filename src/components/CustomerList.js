@@ -1,7 +1,7 @@
 // src/components/CustomerList.js
 
 import React, { useEffect, useState } from 'react';
-import { getAllCustomers } from '../services/customerService';
+import { getAllCustomers,getCustomerById } from '../services/customerService';
 
 const CustomerList = () => {
   const [customers, setCustomers] = useState([]);
@@ -9,7 +9,8 @@ const CustomerList = () => {
   useEffect(() => {
     const fetchCustomers = async () => {
       try {
-        const data = await getAllCustomers();
+        const data = await getCustomerById();
+        console.log('data ',data);
         setCustomers(data);
       } catch (error) {
         console.error('Error fetching customers:', error);
@@ -23,9 +24,9 @@ const CustomerList = () => {
     <div>
       <h1>Customer List</h1>
       <ul>
-        {customers.map((customer) => (
-          <li key={customer.id}>{customer.firstName} {customer.lastName}</li>
-        ))}
+        {/* {customers.map((customer) => ( */}
+          <li key={customers.customerId}>{customers.firstName} {customers.lastName} {customers.address}</li>
+        
       </ul>
     </div>
   );
