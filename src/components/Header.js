@@ -21,17 +21,19 @@ const Header = ({ isLoggedIn, setIsLoggedIn }) => {
           <h1>Stadium Booking</h1>
         </div>
         <ul className="nav-links">
-          <li><Link to="/" className="nav-link">Home</Link></li>
-          <li><Link to="/about-us" className="nav-link">About Us</Link></li>
-          {!isLoggedIn ? (
-            <>
-              <li><Link to="/login" className="nav-link">Login</Link></li>
-              <li><Link to="/signup" className="nav-link">Sign Up</Link></li>
-            </>
-          ) : (
-            <li className="nav-link" onClick={handleLogout}>Logout</li>
-          )}
-        </ul>
+  <li><Link to="/">Home</Link></li>
+  <li><Link to="/about-us">About Us</Link></li>
+  {isLoggedIn && <li><Link to="/profile">Profile</Link></li>}
+  {!isLoggedIn ? (
+    <>
+      <li><Link to="/login">Login</Link></li>
+      <li><Link to="/signup">Sign Up</Link></li>
+    </>
+  ) : (
+    <li onClick={handleLogout} style={{ cursor: 'pointer' }}>Logout</li>
+  )}
+</ul>
+
       </nav>
     </header>
   );

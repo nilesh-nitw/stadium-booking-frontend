@@ -16,7 +16,7 @@ export const getAllCustomers = async () => {
   }
 };
 
-export const getCustomerById = async (customerID) => {
+export const getCustomerById = async () => {
   try {
     setAuthHeader(); // Ensure token is set
     console.log('setAuthHeader();  ',setAuthHeader());
