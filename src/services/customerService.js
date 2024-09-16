@@ -47,3 +47,14 @@ export const deleteCustomer = async (customerID) => {
     throw error;
   }
 };
+
+export const getAllBooking = async () => {
+  try {
+    setAuthHeader(); // Ensure token is set
+    const response = await api.get('/api/v1/booking');
+    console.log('response',response);
+    return response.data;
+  } catch (error) {
+    throw error;
+  }
+};
