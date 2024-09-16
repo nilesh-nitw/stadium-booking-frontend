@@ -1,33 +1,49 @@
-// src/components/CustomerList.js
-
 import React, { useEffect, useState } from 'react';
-import { getAllCustomers,getCustomerById } from '../services/customerService';
+import { getAllBooking, getCustomerById } from '../services/customerService';
 
 const CustomerList = () => {
-  const [customers, setCustomers] = useState([]);
+  const [customers, setCustomers] = useState(null);
+  const [booking, setBooking] = useState([]);
 
   useEffect(() => {
-    const fetchCustomers = async () => {
+    const fetchData = async () => {
       try {
-        const data = await getCustomerById();
-        console.log('data ',data);
-        setCustomers(data);
+        const customerData = await getCustomerById();
+        const bookingData = await getAllBooking();
+        console.log('Customer data:', customerData);
+        console.log('Booking data:', bookingData);
+        setCustomers(customerData);
+        setBooking(bookingData);
       } catch (error) {
-        console.error('Error fetching customers:', error);
+        console.error('Error fetching data:', error);
       }
     };
 
-    fetchCustomers();
+    fetchData();
   }, []);
+
+  if (!customers) {
+    return <div>Loading...</div>;
+  }
 
   return (
     <div>
       <h1>Customer List</h1>
-      <ul>
-        {/* {customers.map((customer) => ( */}
-          <li key={customers.customerId}>{customers.firstName} {customers.lastName} {customers.address}</li>
-        
-      </ul>
+      <div>
+        <h2>Customer Details</h2>
+        <p>{customers.firstName} {customers.lastName}</p>
+        <p>{customers.address}</p>
+      </div>
+      <div>
+        <h2>Booking Information</h2>
+        {booking.map((bookingItem, index) => (
+          <div key={index}>
+            <p>Event ID: {bookingItem.eventID}</p>
+            <p>Seat ID: {bookingItem.seatID}</p>
+            <p>Booking Date: {new Date(bookingItem.bookingDate).toLocaleString()}</p>
+          </div>
+        ))}
+      </div>
     </div>
   );
 };
