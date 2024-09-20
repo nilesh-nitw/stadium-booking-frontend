@@ -51,7 +51,6 @@ const Profile = () => {
             onEditComplete={() => setIsEditing(false)} 
             onCancelEdit={handleCancelEdit} // Pass cancel handler
           />
-          <button onClick={handleCancelEdit} className="cancel-edit-button">Cancel</button>
         </div>
       ) : (
         <div className="profile-info">

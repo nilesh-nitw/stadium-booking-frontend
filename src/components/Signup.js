@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import { signupService } from '../services/authService'; 
-import { useNavigate } from 'react-router-dom'; // Import useNavigate
+import { signupService } from '../services/authService';
+import { useNavigate } from 'react-router-dom';
 import '../style/Signup.css'; // Import the CSS for styling
 
 const Signup = () => {
@@ -27,17 +27,12 @@ const Signup = () => {
     e.preventDefault();
     try {
       const response = await signupService(formData);
-      
-      // If sign-up is successful, save JWT token to localStorage
-      localStorage.setItem('authTokens', response.data.token);
+      const token = response.data.token; // Adjust based on your API response
+      localStorage.setItem('authToken', token);
       console.log('Sign up successful!', response.data);
-      
-      
-      
-      // Redirect to the login page after successful signup
-      navigate('/login'); // Redirect to the login page
+      navigate('/login'); // Redirect to the login page after successful signup
     } catch (error) {
-      setError('Error signing up, please try again');
+      setError(error.message || 'Error signing up, please try again'); // Set error message
       console.error('There was an error!', error);
     }
   };
@@ -45,7 +40,7 @@ const Signup = () => {
   return (
     <div className="signup-container">
       <h2>Sign Up</h2>
-      {error && <p className="error-message">{error}</p>}
+      {error && <p className="error-message">{error}</p>} {/* Display error message */}
       <form onSubmit={handleSubmit} className="signup-form">
         <div className="form-group">
           <input
