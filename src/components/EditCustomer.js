@@ -1,47 +1,59 @@
 import React, { useState } from 'react';
 import { editCustomer } from '../services/customerService';
+import { useNavigate } from 'react-router-dom'; 
+import '../style/EditCustomer.css'; 
 
 const EditCustomer = ({ customerID, onEditComplete }) => {
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
   const [error, setError] = useState(null);
+  const navigate = useNavigate(); 
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
       await editCustomer({ firstName, lastName });
       alert('Customer updated successfully');
-      onEditComplete(); // Notify the parent component to refresh or exit edit mode
+      navigate('/'); 
     } catch (err) {
       setError(err.message);
     }
   };
 
+  const handleCancel = () => {
+    navigate('/'); 
+  };
+
   return (
-    <div>
+    <div className="edit-customer-container">
       <h1>Edit Customer</h1>
-      <form onSubmit={handleSubmit}>
-        <div>
+      <form onSubmit={handleSubmit} className="edit-customer-form">
+        <div className="form-group">
           <label>First Name</label>
           <input
             type="text"
             value={firstName}
             onChange={(e) => setFirstName(e.target.value)}
             required
+            className="form-input"
           />
         </div>
-        <div>
+        <div className="form-group">
           <label>Last Name</label>
           <input
             type="text"
             value={lastName}
             onChange={(e) => setLastName(e.target.value)}
             required
+            className="form-input"
           />
         </div>
-        <button type="submit">Update Customer</button>
+        <div className="form-buttons">
+          <button type="submit" className="submit-button">Update Customer</button>
+          <button type="button" onClick={handleCancel} className="cancel-button">Cancel</button>
+        </div>
       </form>
-      {error && <p>Error: {error}</p>}
+      {error && <p className="error-message">Error: {error}</p>}
     </div>
   );
 };

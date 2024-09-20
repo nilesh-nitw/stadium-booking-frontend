@@ -1,29 +1,39 @@
 import React, { useEffect, useState } from 'react';
 import { getAllBooking, getCustomerById } from '../services/customerService';
+import { getAllEvents } from '../services/EventService';
+ import '../style/CustomerList.css';
+ import Spinner from './Spinner';
 
 const CustomerList = () => {
   const [customers, setCustomers] = useState(null);
   const [booking, setBooking] = useState([]);
+  const [event, setEvent] = useState([]);
+  const [error, setError] = useState('');
 
   useEffect(() => {
     const fetchData = async () => {
       try {
         const customerData = await getCustomerById();
         const bookingData = await getAllBooking();
-        console.log('Customer data:', customerData);
-        console.log('Booking data:', bookingData);
+        const events= await (getAllEvents());
         setCustomers(customerData);
         setBooking(bookingData);
+        setEvent(events);
+        console.log('events ',events);
       } catch (error) {
-        console.error('Error fetching data:', error);
+        setError(error.message); // Use the error message from the service
       }
     };
 
     fetchData();
   }, []);
 
+  if (error) {
+    return <div className="error-message">{error}</div>;
+  }
+
   if (!customers) {
-    return <div>Loading...</div>;
+    return <Spinner />; 
   }
 
   return (

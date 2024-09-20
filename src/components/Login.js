@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { loginService } from '../services/authService'; // Assuming you have a login service
-import '../style/Login.css';
+import { loginService } from '../services/authService'; // Import login service
+import '../style/Login.css'; // Import CSS file for styling
 
 const Login = ({ setIsLoggedIn }) => {
   const [email, setEmail] = useState('');
@@ -19,7 +19,7 @@ const Login = ({ setIsLoggedIn }) => {
       setIsLoggedIn(true); // Set the login state to true
       navigate('/'); // Redirect to the home page
     } catch (error) {
-      setError('Login failed. Please check your credentials and try again.'); // Set error message
+      setError(error.message || 'Login failed. Please check your credentials and try again.'); // Set error message
       console.error('Login failed:', error);
     }
   };
